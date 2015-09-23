@@ -1,0 +1,35 @@
+{
+    "name":         "phisby/phisby",
+    "description":  "REST API Endpoint Testing built on PHPUnit",
+    "homepage":     "http://github.com/FabioBatSilva/phisby",
+    "keywords":     ["test"],
+    "license":      "MIT",
+    "authors": [
+        {
+            "name":  "Fabio B. Silva",
+            "email": "fabio.bat.silva@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Phisby": "src/" }
+    },
+    "require": {
+        "php":                ">=5.4.0",
+        "phpunit/phpunit":    ">=3.7.8",
+        "guzzlehttp/guzzle":  "~6"
+    },
+    "require-dev": {
+        "instaclick/coding-standard":            "~1.1",
+        "squizlabs/php_codesniffer":             "~1.5",
+        "satooshi/php-coveralls":                "~0.6",
+        "codeclimate/php-test-reporter":         "~0.1",
+        "php-mock/php-mock-phpunit":             "^0.2",
+        "instaclick/object-calisthenics-sniffs": "dev-master",
+        "instaclick/symfony2-coding-standard":   "dev-remaster"
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "PhisbyTest\\": "tests"
+        }
+    }
+}
