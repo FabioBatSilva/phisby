@@ -47,13 +47,8 @@ $frisby
 
 ```php
 
-<?php
-
 use Phisby\PhisbyTestCase;
 
-/**
- * @group functional
- */
 class PhisbyTest extends PhisbyTestCase
 {
     public function testGithubSearch()
