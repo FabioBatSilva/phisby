@@ -14,9 +14,6 @@ Run the following `composer` command:
 $ composer require "phisby/phisby"
 ```
 
-## Documentation
-API documentation for this library can be found on [readthedocs](http://phisby.readthedocs.org/en/latest/)
-
 ## Basic Usage.
 
 ```php
