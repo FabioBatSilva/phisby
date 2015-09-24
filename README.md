@@ -1,7 +1,7 @@
 # Phisby
 
-[![Build Status](https://travis-ci.org/FabioBatSilva/phisby.svg?branch=master)](https://travis-ci.org/FabioBatSilva/phisby)
-[![Coverage Status](https://coveralls.io/repos/FabioBatSilva/phisby/badge.svg?branch=master)](https://coveralls.io/r/FabioBatSilva/phisby?branch=master)
+[![Build Status](https://travis-ci.org/FabioBatSilva/phisby.svg)](https://travis-ci.org/FabioBatSilva/phisby)
+[![Coverage Status](https://coveralls.io/repos/FabioBatSilva/phisby/badge.svg?branch=master&service=github)](https://coveralls.io/github/FabioBatSilva/phisby?branch=master)
 
 A REST API testing framework inspired by frisby-js, written in PHP
 
