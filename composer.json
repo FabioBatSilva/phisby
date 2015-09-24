@@ -2,7 +2,7 @@
     "name":         "phisby/phisby",
     "description":  "REST API Endpoint Testing built on PHPUnit",
     "homepage":     "http://github.com/FabioBatSilva/phisby",
-    "keywords":     ["test"],
+    "keywords":     ["testing", "phpunit", "rest"],
     "license":      "MIT",
     "authors": [
         {
