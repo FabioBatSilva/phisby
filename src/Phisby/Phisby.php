@@ -94,6 +94,8 @@ class Phisby
     {
         $phisby = new Phisby($this->client);
 
+        $phisby->withOptions($this->options);
+
         $this->children[] = $phisby;
 
         return $phisby;
@@ -150,7 +152,7 @@ class Phisby
     /**
      * Reset phisby
      */
-    public function reset()
+    public function clear()
     {
         $this->children  = [];
         $this->options   = [];

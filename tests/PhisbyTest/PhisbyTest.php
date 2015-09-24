@@ -7,6 +7,86 @@ use Phisby\PhisbyTestCase;
 
 class PhisbyTest extends PhisbyTestCase
 {
+    public function testSendRequestOptions()
+    {
+        $url      = '/users/1.json';
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse(200, [], []);
+        $options  = [
+            'headers'  => [
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $client
+            ->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('GET'), $this->equalTo($url), $this->equalTo($options))
+            ->willReturn($response);
+
+        $phisby->create()
+            ->get($url, $options)
+            ->expectStatus(200)
+            ->send();
+    }
+
+    public function testWithOptionsRequestOptions()
+    {
+        $url      = '/users/1.json';
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse(200, [], []);
+        $options  = [
+            'headers'  => [
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $phisby->withOptions($options);
+
+        $client
+            ->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('GET'), $this->equalTo($url), $this->equalTo($options))
+            ->willReturn($response);
+
+        $phisby->create()
+            ->get($url)
+            ->expectStatus(200)
+            ->send();
+    }
+
+    public function testClear()
+    {
+        $url      = '/users/1.json';
+        $mock     = $this->getMock('GuzzleHttp\ClientInterface');
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse(200, [], []);
+        $options  = [
+            'headers'  => [
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $phisby->withOptions($options);
+        $phisby->get('/users/1.json');
+        $f = $phisby->create();
+
+        $this->assertEquals($url, $this->getPropertyValue($phisby, 'url'));
+        $this->assertEquals('GET', $this->getPropertyValue($phisby, 'method'));
+        $this->assertEquals($options, $this->getPropertyValue($phisby, 'options'));
+        $this->assertEquals([$f], $this->getPropertyValue($phisby, 'children'));
+
+        $phisby->clear();
+
+        $this->assertNull($this->getPropertyValue($phisby, 'url'));
+        $this->assertNull($this->getPropertyValue($phisby, 'method'));
+        $this->assertEquals([], $this->getPropertyValue($phisby, 'options'));
+        $this->assertEquals([], $this->getPropertyValue($phisby, 'children'));
+    }
+
     public function testSendPostRequest()
     {
         $status  = 200;
@@ -81,11 +161,11 @@ class PhisbyTest extends PhisbyTestCase
         $client
             ->expects($this->once())
             ->method('request')
-            ->with($this->equalTo('POST'), $this->equalTo($url), $this->equalTo($options))
+            ->with($this->equalTo('PUT'), $this->equalTo($url), $this->equalTo($options))
             ->willReturn($response);
 
         $resp = $phisby->create()
-            ->post($url, $data)
+            ->put($url, $data)
             ->expectStatus($status)
             ->expectHeaders($headers)
             ->expectJSONTypes('.', $types)
@@ -355,5 +435,20 @@ class PhisbyTest extends PhisbyTestCase
             ->willReturn($body);
 
         return $response;
+    }
+
+    /**
+     * @param object $object
+     * @param string $property
+     *
+     * @return mixed
+     */
+    protected function getPropertyValue($object, $property)
+    {
+        $reflection = new \ReflectionProperty($object, $property);
+
+        $reflection->setAccessible(true);
+
+        return $reflection->getValue($object);
     }
 }

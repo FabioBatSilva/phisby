@@ -3,7 +3,7 @@
 namespace Phisby;
 
 /**
- * Phisby Runnable
+ * Phisby Expectation
  *
  * @author Fabio B. Silva <fabio.bat.silva@gmail.com>
  */
@@ -23,9 +23,9 @@ class Expectation
     }
 
     /**
-     * Add a request assert
+     * Add a constraint
      *
-     * @param \Phisby\Constraint $assert
+     * @param \Phisby\Constraint $constraint
      */
     public function add(Constraint $constraint)
     {
