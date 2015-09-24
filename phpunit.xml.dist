@@ -16,13 +16,6 @@
         </testsuite>
     </testsuites>
 
-    <groups>
-        <exclude>
-            <group>benchmark</group>
-            <group>deprecated</group>
-        </exclude>
-    </groups>
-
     <filter>
         <blacklist>
               <directory>./vendor/*</directory>
