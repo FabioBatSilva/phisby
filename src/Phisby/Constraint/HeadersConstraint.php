@@ -21,7 +21,7 @@ class HeadersConstraint extends BaseConstraint
      */
     public function __construct(array $expectedHeaders)
     {
-        $this->expectedHeaders = array_map(function($value){
+        $this->expectedHeaders = array_map(function ($value) {
             return is_array($value) ? $value : [$value];
         }, $expectedHeaders);
     }

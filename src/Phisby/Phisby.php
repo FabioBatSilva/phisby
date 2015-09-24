@@ -151,13 +151,15 @@ class Phisby
 
     /**
      * Reset phisby
+     *
+     * @return \Phisby\Response
      */
     public function clear()
     {
-        $this->children  = [];
-        $this->options   = [];
-        $this->url       = null;
-        $this->method    = null;
+        $this->children = [];
+        $this->options  = [];
+        $this->url      = null;
+        $this->method   = null;
 
         $this->expectation->clear();
 

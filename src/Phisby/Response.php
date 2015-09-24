@@ -78,6 +78,8 @@ class Response
     /**
      * Get HTTP header
      *
+     * @param string $header
+     *
      * @return string
      */
     public function getHeader($header)
@@ -87,6 +89,8 @@ class Response
 
     /**
      * Check if the HTTP header exists
+     *
+     * @param string $header
      *
      * @return boolean
      */
