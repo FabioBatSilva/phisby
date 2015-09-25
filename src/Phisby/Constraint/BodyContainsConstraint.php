@@ -29,7 +29,7 @@ class BodyContainsConstraint extends BaseConstraint
      */
     public function evaluate(Response $response)
     {
-        $actual  = (string)$response->getBody();
+        $actual  = (string) $response->getBody();
         $context = "Expected body contains";
 
         $this->assertContains($this->expectedBody, $actual, $context);
