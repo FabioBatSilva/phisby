@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\RequestException;
 use Phisby\Constraint\StatusCodeConstraint;
 use Phisby\Constraint\HeadersConstraint;
 use Phisby\Constraint\JSONTypesConstraint;
+use Phisby\Constraint\BodyContainsConstraint;
 use Phisby\Constraint\JSONConstraint;
 
 /**
@@ -344,6 +345,20 @@ class Phisby
     public function expectHeaders($headers)
     {
         $this->expectation->add(new HeadersConstraint($headers));
+
+        return $this;
+    }
+
+    /**
+     * Assert the response body contains
+     *
+     * @param string $content
+     *
+     * @return \Phisby\Response
+     */
+    public function expectBodyContains($content)
+    {
+        $this->expectation->add(new BodyContainsConstraint($content));
 
         return $this;
     }

@@ -12,7 +12,7 @@ use Phisby\Response;
 class JSONConstraint extends BaseConstraint
 {
     /**
-     * @var array Expected JSON types
+     * @var array Expected JSON data
      */
     private $expectedJSON = [];
 

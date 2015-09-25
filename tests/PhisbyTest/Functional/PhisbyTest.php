@@ -18,6 +18,7 @@ class PhisbyTest extends PhisbyTestCase
             ->expectHeaders([
                 'Content-Type' => 'application/json; charset=utf-8'
             ])
+            ->expectBodyContains('doctrine')
             ->expectJSONTypes('.', [
                 'total_count'        => 'integer',
                 'incomplete_results' => 'boolean',
