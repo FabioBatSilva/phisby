@@ -167,6 +167,8 @@ class Phisby
     /**
      * Assertion failure callback
      *
+     * @param callable $callable
+     *
      * @return \Phisby\Phisby
      */
     public function onFailure(callable $callable)
