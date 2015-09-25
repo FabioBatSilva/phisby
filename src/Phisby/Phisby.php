@@ -2,6 +2,7 @@
 
 namespace Phisby;
 
+use RuntimeException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -78,6 +79,11 @@ class Phisby
     private $url;
 
     /**
+     * @var callable Assertion failure callback
+     */
+    private $onFailureCallback;
+
+    /**
      * @param \GuzzleHttp\ClientInterface $client
      */
     public function __construct(ClientInterface $client)
@@ -89,7 +95,7 @@ class Phisby
     /**
      * Creates a new Phisby
      *
-     * @return \Phisby\Request
+     * @return \Phisby\Phisby
      */
     public function create()
     {
@@ -145,15 +151,35 @@ class Phisby
         $reason   = $resp->getReasonPhrase();
         $response = new Response($status, $body, $headers, $reason);
 
-        $this->expectation->assert($response);
+        try {
+            $this->expectation->assert($response);
+        } catch (RuntimeException $e) {
+            if ($this->onFailureCallback == null) {
+                throw $e;
+            }
+
+            call_user_func_array($this->onFailureCallback, [$e, $response]);
+        }
 
         return $response;
     }
 
     /**
+     * Assertion failure callback
+     *
+     * @return \Phisby\Phisby
+     */
+    public function onFailure(callable $callable)
+    {
+        $this->onFailureCallback = $callable;
+
+        return $this;
+    }
+
+    /**
      * Reset phisby
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function clear()
     {
@@ -172,7 +198,7 @@ class Phisby
      *
      * @param array $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function withOptions(array $options)
     {
@@ -187,7 +213,7 @@ class Phisby
      * @param string $url
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function get($url, array $options = [])
     {
@@ -205,7 +231,7 @@ class Phisby
      * @param array  $data
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function put($url, array $data = [], array $options = [])
     {
@@ -224,7 +250,7 @@ class Phisby
      * @param array  $data
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function post($url, array $data = [], array $options = [])
     {
@@ -243,7 +269,7 @@ class Phisby
      * @param array  $data
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function patch($url, array $data = [], array $options = [])
     {
@@ -262,7 +288,7 @@ class Phisby
      * @param array  $data
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function delete($url, array $data = [], array $options = [])
     {
@@ -280,7 +306,7 @@ class Phisby
      * @param string $url
      * @param array  $options
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function options($url, array $options = [])
     {
@@ -296,7 +322,7 @@ class Phisby
      *
      * @param integer $statusCode
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function expectStatus($statusCode)
     {
@@ -311,7 +337,7 @@ class Phisby
      * @param string $path
      * @param string $data
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function expectJSON($path, array $data)
     {
@@ -326,7 +352,7 @@ class Phisby
      * @param string $path
      * @param string $types
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function expectJSONTypes($path, array $types)
     {
@@ -340,7 +366,7 @@ class Phisby
      *
      * @param array $headers
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function expectHeaders($headers)
     {
@@ -354,7 +380,7 @@ class Phisby
      *
      * @param string $content
      *
-     * @return \Phisby\Response
+     * @return \Phisby\Phisby
      */
     public function expectBodyContains($content)
     {

@@ -7,6 +7,65 @@ use Phisby\PhisbyTestCase;
 
 class PhisbyTest extends PhisbyTestCase
 {
+    public function testAssertionFailedCallback()
+    {
+        $call     = new \stdClass;
+        $url      = '/users/1.json';
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse(500, [], []);
+        $callback = function ($exception, $response) use ($call) {
+            $this->assertInstanceOf('RuntimeException', $exception);
+            $this->assertInstanceOf('Phisby\Response', $response);
+
+            $call->exception = $exception;
+            $call->response  = $response;
+        };
+
+        $call->exception = null;
+        $call->response  = null;
+
+        $client
+            ->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('GET'), $this->equalTo($url), $this->equalTo([]))
+            ->willReturn($response);
+
+        $response = $phisby->create()
+            ->get($url)
+            ->expectStatus(200)
+            ->onFailure($callback)
+            ->send();
+
+        $this->assertSame($response, $call->response);
+        $this->assertInstanceOf('RuntimeException', $call->exception);
+    }
+
+    public function testAssertionFailedException()
+    {
+        $url      = '/users/1.json';
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse(500, [], []);
+
+        $client
+            ->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('GET'), $this->equalTo($url), $this->equalTo([]))
+            ->willReturn($response);
+
+        try {
+            $phisby->create()
+                ->get($url)
+                ->expectStatus(200)
+                ->send();
+
+            $this->fail('Fail to throw exception');
+        } catch (\Exception $e) {
+            $this->assertInstanceOf('RuntimeException', $e);
+        }
+    }
+
     public function testSendRequestOptions()
     {
         $url      = '/users/1.json';
