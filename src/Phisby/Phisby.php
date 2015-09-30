@@ -88,7 +88,7 @@ class Phisby
      */
     public function __construct(ClientInterface $client)
     {
-        $this->client      = $client ?: new Client();
+        $this->client      = $client;
         $this->expectation = new Expectation();
     }
 
@@ -138,7 +138,7 @@ class Phisby
         try {
             $resp = $this->client->request($method, $url, $options);
         } catch (RequestException $e) {
-            if ( ! $e->hasResponse()) {
+            if (!$e->hasResponse()) {
                 throw $e;
             }
 
