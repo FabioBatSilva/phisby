@@ -19,8 +19,9 @@ $ composer require "phisby/phisby"
 ```php
 
 use Phisby\Phisby
+use GuzzleHttp\Client as HttpClient;
 
-$frisby = new Phisby();
+$frisby = new Phisby(new HttpClient());
 
 $frisby
     ->get('http://localhost/api/1.0/users/3.json')
