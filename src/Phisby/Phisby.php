@@ -337,7 +337,7 @@ class Phisby
      * Assert the HTTP response body as JSON and check values
      *
      * @param string $path
-     * @param string $data
+     * @param array  $data
      *
      * @return \Phisby\Phisby
      */
@@ -352,7 +352,7 @@ class Phisby
      * Assert the HTTP response body as JSON and check types
      *
      * @param string $path
-     * @param string $types
+     * @param array  $types
      *
      * @return \Phisby\Phisby
      */
@@ -370,7 +370,7 @@ class Phisby
      *
      * @return \Phisby\Phisby
      */
-    public function expectHeaders($headers)
+    public function expectHeaders(array $headers)
     {
         $this->expectation->add(new HeadersConstraint($headers));
 

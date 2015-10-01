@@ -10,6 +10,25 @@ use Phisby\PhisbyTestCase;
  */
 class PhisbyTest extends PhisbyTestCase
 {
+    public function testPostRequest()
+    {
+        $response = $this->phisby->create()
+            ->post('http://httpbin.org/post', [
+                'arr'  => [1,2,3],
+                'str'  => 'string',
+                'int'  => 123
+            ])
+            ->expectStatus(200)
+            ->expectJSONTypes('json', [
+                'arr' => 'array',
+                'str' => 'string',
+                'int' => 'integer'
+            ])
+            ->send();
+
+        $this->assertInstanceOf('Phisby\Response', $response);
+    }
+
     public function testGithubSearch()
     {
         $this->phisby->create()

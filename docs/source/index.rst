@@ -103,3 +103,13 @@ Use Issues_ to report problems or submit contributions.
 .. _Composer: https://getcomposer.org
 
 .. _GuzzleRequestOptions: http://guzzle.readthedocs.org/en/latest/request-options.html
+
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 1
+
+   expectations
+   request-method
