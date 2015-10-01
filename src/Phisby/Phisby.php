@@ -84,9 +84,9 @@ class Phisby
     private $onFailureCallback;
 
     /**
-     * @param \GuzzleHttp\ClientInterface $client
+     * @param \GuzzleHttp\ClientInterface $client (opcional)
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client = null)
     {
         $this->client      = $client ?: new Client();
         $this->expectation = new Expectation();
@@ -138,7 +138,7 @@ class Phisby
         try {
             $resp = $this->client->request($method, $url, $options);
         } catch (RequestException $e) {
-            if ( ! $e->hasResponse()) {
+            if (!$e->hasResponse()) {
                 throw $e;
             }
 
