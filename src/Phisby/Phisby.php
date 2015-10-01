@@ -86,7 +86,7 @@ class Phisby
     /**
      * @param \GuzzleHttp\ClientInterface $client
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client = null)
     {
         $this->client      = $client ?: new Client();
         $this->expectation = new Expectation();
