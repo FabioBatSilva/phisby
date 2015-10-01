@@ -84,7 +84,7 @@ class Phisby
     private $onFailureCallback;
 
     /**
-     * @param \GuzzleHttp\ClientInterface $client (opcional)
+     * @param \GuzzleHttp\ClientInterface $client (optional)
      */
     public function __construct(ClientInterface $client = null)
     {
