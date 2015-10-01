@@ -5,6 +5,8 @@
 
 A REST API testing framework inspired by frisby-js, written in PHP
 
+## Documentation
+Documentation for this library can be found on [readthedocs](http://phisby.readthedocs.org/en/latest)
 
 ## Installation
 
