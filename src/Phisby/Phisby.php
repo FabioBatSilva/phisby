@@ -20,9 +20,9 @@ use Phisby\Constraint\JSONConstraint;
  * <?php
  * use Phisby\Phisby;
  *
- * $frisby = new Phisby();
+ * $phisby = new Phisby();
  *
- * $frisby
+ * $phisby
  *   ->get('http://localhost/api/1.0/users/3.json')
  *   ->expectStatus(200)
  *   ->expectJSONTypes('.', [
@@ -314,6 +314,23 @@ class Phisby
     {
         $this->url     = $url;
         $this->method  = 'OPTIONS';
+        $this->options = array_merge($this->options, $options);
+
+        return $this;
+    }
+
+    /**
+     * HTTP HEAD Request
+     *
+     * @param string $url
+     * @param array  $options
+     *
+     * @return \Phisby\Phisby
+     */
+    public function head($url, array $options = [])
+    {
+        $this->url     = $url;
+        $this->method  = 'HEAD';
         $this->options = array_merge($this->options, $options);
 
         return $this;

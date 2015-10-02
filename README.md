@@ -22,9 +22,9 @@ $ composer require "phisby/phisby"
 
 use Phisby\Phisby
 
-$frisby = new Phisby();
+$phisby = new Phisby();
 
-$frisby
+$phisby
     ->get('http://localhost/api/1.0/users/3.json')
     ->expectStatus(200)
     ->expectJSONTypes('.', [

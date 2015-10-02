@@ -416,6 +416,49 @@ class PhisbyTest extends PhisbyTestCase
         $this->assertEquals($data, $resp->json());
     }
 
+    public function testSendHeadRequest()
+    {
+        $status  = 200;
+        $url     = '/users/5.json';
+        $data    = [
+            'id'    => 5,
+            'name'  => 'user 5'
+        ];
+
+        $types  = [
+            'id'    => 'integer',
+            'name'  => 'string'
+        ];
+
+        $headers = [
+            'Content-Type' => ['application/json; charset=utf-8']
+        ];
+
+        $client   = $this->getMock('GuzzleHttp\ClientInterface');
+        $phisby   = new Phisby($client);
+        $response = $this->createResponse($status, $data, $headers);
+
+        $client
+            ->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('HEAD'), $this->equalTo($url))
+            ->willReturn($response);
+
+        $resp = $phisby->create()
+            ->head($url)
+            ->expectStatus($status)
+            ->expectHeaders($headers)
+            ->expectJSONTypes('.', $types)
+            ->expectJSON('.', $data)
+            ->send();
+
+        $this->assertInstanceOf('Phisby\Response', $resp);
+        $this->assertEquals($status, $resp->getStatusCode());
+        $this->assertEquals($headers, $resp->getHeaders());
+        $this->assertEquals(json_encode($data), $resp->getBody());
+        $this->assertEquals($data, $resp->json());
+    }
+
     public function testSendAllRequests()
     {
         $status  = 200;

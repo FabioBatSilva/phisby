@@ -19,7 +19,7 @@ Assert that HTTP Status code equals expectation
 
     <?php
 
-    $frisby->create()
+    $phisby->create()
         ->get('https://api.github.com/users/FabioBatSilva')
         ->expectStatus(200)
         ->send();
@@ -37,7 +37,7 @@ Assert the HTTP response headers
 
     <?php
 
-    $frisby->create()
+    $phisby->create()
         ->get('https://api.github.com/users/FabioBatSilva')
         ->expectHeaders([
             'Content-Type' => 'application/json; charset=utf-8'
@@ -57,7 +57,7 @@ Tests that response JSON body contains the provided keys/values in the response.
 
     <?php
 
-    $frisby->create()
+    $phisby->create()
         ->get('https://api.github.com/users/FabioBatSilva')
         ->expectJSON('.', [
             'id'     => 588172,
@@ -68,7 +68,7 @@ Tests that response JSON body contains the provided keys/values in the response.
 
 .. expect-json-types:
 
-------------------------------------------
+-------------------------------------------
 expectJSONTypes(string $path, array $types)
 -------------------------------------------
 
@@ -78,7 +78,7 @@ Tests that response JSON body contains the provided keys/values types.
 
     <?php
 
-    $frisby->create()
+    $phisby->create()
         ->get('https://api.github.com/users/FabioBatSilva')
         ->expectJSONTypes('.', [
             'id'     => 'integer',
@@ -101,7 +101,7 @@ a simple path like ``results`` or ``.`` to test the whole JSON.
 
     <?php
 
-    $frisby->create()
+    $phisby->create()
         ->get('http://httpbin.org/get?foo=bar&bar=baz')
         ->expectJSON('args', [
             'bar' => 'foo',

@@ -36,7 +36,7 @@ Sends a GET request
         ]
     ];
 
-    $frisby->create()
+    $phisby->create()
         ->get('http://httpbin.org/get?foo=bar&bar=baz', $options)
         ->expectStatus(200)
         ->send();
@@ -65,10 +65,99 @@ Sends a POST request
         ]
     ];
 
-    $frisby->create()
+    $phisby->create()
         ->post('http://httpbin.org/post', $data, $options)
         ->expectStatus(200)
         ->send();
 
 
+.. put-request:
+
+---------------------------------------------------------
+post(string $url, array $data = [], array $options = [])
+---------------------------------------------------------
+
+Sends a POST request
+
+.. code-block:: php
+
+    <?php
+
+    $data = [
+        'foo' => 'bar',
+        'bar' => 'baz'
+    ];
+
+    $options = [
+        'headers'  => [
+            'Content-Type' => 'application/json'
+        ]
+    ];
+
+    $phisby->create()
+        ->put('http://httpbin.org/post', $data, $options)
+        ->expectStatus(200)
+        ->send();
+
+
+.. put-request:
+
+---------------------------------------------------------
+put(string $url, array $data = [], array $options = [])
+---------------------------------------------------------
+
+Sends a PUT request
+
+.. code-block:: php
+
+    <?php
+
+    $data = [
+        'foo' => 'bar',
+        'bar' => 'baz'
+    ];
+
+    $options = [
+        'headers'  => [
+            'Content-Type' => 'application/json'
+        ]
+    ];
+
+    $phisby->create()
+        ->put('http://httpbin.org/put', $data, $options)
+        ->expectStatus(200)
+        ->send();
+
+
+.. patch-request:
+
+---------------------------------------------------------
+patch(string $url, array $data = [], array $options = [])
+---------------------------------------------------------
+
+Sends a PATCH request
+
+.. code-block:: php
+
+    <?php
+
+    $data = [
+        'foo' => 'bar',
+        'bar' => 'baz'
+    ];
+
+    $options = [
+        'headers'  => [
+            'Content-Type' => 'application/json'
+        ]
+    ];
+
+    $phisby->create()
+        ->patch('http://httpbin.org/patch', $data, $options)
+        ->expectStatus(200)
+        ->send();
+
+
 .. _GuzzleRequestOptions: http://guzzle.readthedocs.org/en/latest/request-options.html
+
+

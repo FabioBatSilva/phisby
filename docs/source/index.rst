@@ -28,7 +28,7 @@ Phisby tests start by creating a phisby object :
     <?php
     use Phisby\Phisby;
 
-    $frisby = new Phisby();
+    $phisby = new Phisby();
 
 
 As an optional argument ``Phisby\Phisby`` takes an instance of ``\GuzzleHttp\ClientInterface`` wich is used to all request :
@@ -42,7 +42,7 @@ As an optional argument ``Phisby\Phisby`` takes an instance of ``\GuzzleHttp\Cli
 
     $uri    = 'http://localhost/api/1.0';
     $guzzle = new Client(['base_uri' => $uri]);
-    $frisby = new Phisby($guzzle);
+    $phisby = new Phisby($guzzle);
 
 .. note::
     Please see `GuzzleRequestOptions`_  to see all request options avaiable.
@@ -68,9 +68,8 @@ eq :
     <?php
     use Phisby\Phisby;
 
-    $frisby = new Phisby();
-
-    $frisby->create()
+    $phisby   = new Phisby();
+    $response = $phisby->create()
         ->get('https://api.github.com/users/FabioBatSilva')
         ->expectStatus(200)
         ->expectHeaders([
@@ -87,6 +86,16 @@ eq :
             'url'   => 'https://api.github.com/users/FabioBatSilva',
         ])
         ->send();
+
+    var_dump($response->json());
+    /*
+    {
+      "id":    588172,
+      "login": "FabioBatSilva",
+      "url":   "https://api.github.com/users/FabioBatSilva",
+      / .....
+    }
+    */
 
 
 -----------
